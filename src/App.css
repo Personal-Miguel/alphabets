@@ -1,0 +1,9 @@
+
+.App {
+    background-color: gray;
+    min-height: 100vh;
+}
+
+.CustomNavBar {
+    height: 5vh;
+}
