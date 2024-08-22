@@ -1,23 +1,36 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
+import { useDispatch, useSelector } from 'react-redux';
+import { IReducedState, SelectAlphabet } from '../store/actions/action';
 
 function AlphabetList() {
-  var alphabets = [1, 2, 3,1, 2, 3,1, 2, 3,1, 2, 3,1, 2, 3,1, 2, 3,1, 2, 3,1, 2, 3,1, 2, 3,]
 
+  var alphabets = ["test1", "test2"]
+  const dispatch = useDispatch()
+  const taskTitle = useSelector((state: IReducedState) => state.mem.selectedAlphabet)
+
+  const SelectAlphabetBtn = (alphabet: string) =>{
+     dispatch(SelectAlphabet(alphabet))
+  }
+  
   return (
-    <Card style={{ height: "95vh", width: '20%' }}>
-      <ListGroup style={{ overflow: "scroll"}}>
-        {alphabets.map(x => 
-          <ListGroup.Item style={{ padding: "0"}}>
-            <Button style={{ height: "", width:"100%", padding: "0", borderRadius: "0"}}>
-              {x}
-            </Button>
-          </ListGroup.Item>
-        )}
-      </ListGroup>
-    </Card>
-  );
+    <div>
+      <Card style={{ height: "95vh", width: "15%" }}>
+        <ListGroup style={{ overflow: "scroll", overflowX: "hidden"}}>
+          { alphabets.map(alphabet => 
+            <ListGroup.Item key={alphabet} style={{ padding: "0" }}>
+              <Button onClick={() => SelectAlphabetBtn(alphabet)} style={{ height: "100%", width:"100%", padding: "0", borderRadius: "0"}}>
+                {alphabet}
+              </Button>
+            </ListGroup.Item>
+          )}
+        </ListGroup>
+      </Card>
+    </div>
+  )
 }
 
 export default AlphabetList;
+
+

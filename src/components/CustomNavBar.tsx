@@ -7,7 +7,7 @@ function CustomNavBar(): JSX.Element {
         <Navbar.Brand href="a">Alphabets</Navbar.Brand>
       </div>
     </Navbar>
-  );
+  )
 }
 
 export default CustomNavBar;
