@@ -1,4 +1,4 @@
-import { IAction, IState, SELECT_ALPHABET } from "../actions/action";
+import { ADD_ALPHABET, IAction, IState, SELECT_ALPHABET } from "../actions/action";
 
 const initialState: IState = {
     selectedAlphabet: "",
@@ -12,11 +12,28 @@ const memReducer = (state = initialState, action: IAction) => {
             localStorage.setItem("selectedAlphabet", action.payload)
             return {
                 ...state,
-                selectedAlphabet: localStorage.getItem("selectedAlphabet") as string,
+                selectedAlphabet: localStorage.getItem("selectedAlphabet")!,
             }
+        case ADD_ALPHABET:
+            let alphabetsCopy = state.alphabets.slice()
+            alphabetsCopy.push(action.payload)
 
+            let alphabetsCopyForStorage = JSON.stringify(alphabetsCopy)
+            localStorage.setItem("alphabets", alphabetsCopyForStorage)
+            return {
+                ...state,
+                alphabets: alphabetsCopy,
+            }
         default:
-            return state;
+            let storedAlphabets = localStorage.getItem("alphabets")
+            let alphabets = []
+            if(storedAlphabets !== null) {
+                alphabets = JSON.parse(storedAlphabets)
+            }
+            return {
+                ...state,
+                alphabets: alphabets,
+            }
     }
 };
 

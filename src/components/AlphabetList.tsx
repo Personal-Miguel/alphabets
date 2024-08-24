@@ -2,28 +2,39 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { useDispatch, useSelector } from 'react-redux';
-import { IReducedState, SelectAlphabet } from '../store/actions/action';
+import { AddAlphabet, IReducedState, SelectAlphabet } from '../store/actions/action';
 
 function AlphabetList() {
+  var alphabets = useSelector((state: IReducedState) => state.mem.alphabets)
+  var selectedAlphabet = useSelector((state: IReducedState) => state.mem.selectedAlphabet)
 
-  var alphabets = ["test1", "test2"]
   const dispatch = useDispatch()
-  const taskTitle = useSelector((state: IReducedState) => state.mem.selectedAlphabet)
-
   const SelectAlphabetBtn = (alphabet: string) =>{
      dispatch(SelectAlphabet(alphabet))
   }
-  
+
+  const AddAlphabetBtn = () =>{
+    const newAlphabetElement = document.getElementById("newAlphabet") as HTMLInputElement
+    dispatch(AddAlphabet(newAlphabetElement.value))
+  }
+
   return (
     <div>
-      <Card style={{ height: "95vh", width: "15%" }}>
-        <ListGroup style={{ overflow: "scroll", overflowX: "hidden"}}>
+      <Card style={{ height: "95vh", width: "15%", backgroundColor: "#212529" }}>
+        <form  className="form-inline" style={{ padding: "10px", borderRadius: "0" }}>
+          <input id="newAlphabet" placeholder="New Alphabet Name" style={{ width: "65%", margin: "10px" }}/>
+          <Button onClick={AddAlphabetBtn} style={{ backgroundColor: "black", borderColor: "black" }}>
+            Add
+          </Button>
+        </form >
+        <ListGroup style={{ height: "100%", overflow: "scroll", overflowX: "hidden" }}>
           { alphabets.map(alphabet => 
-            <ListGroup.Item key={alphabet} style={{ padding: "0" }}>
-              <Button onClick={() => SelectAlphabetBtn(alphabet)} style={{ height: "100%", width:"100%", padding: "0", borderRadius: "0"}}>
-                {alphabet}
-              </Button>
-            </ListGroup.Item>
+            <Button key={alphabet} onClick={() => SelectAlphabetBtn(alphabet)}
+              style={{ backgroundColor: selectedAlphabet.localeCompare(alphabet) ? "#212529" : "white",
+                      color: selectedAlphabet.localeCompare(alphabet) ? "white" : "black",
+                      borderColor: "#808080",  width:"100%", padding: "25px", borderRadius: "0" }}>
+              {alphabet}
+            </Button>
           )}
         </ListGroup>
       </Card>
@@ -32,5 +43,3 @@ function AlphabetList() {
 }
 
 export default AlphabetList;
-
-

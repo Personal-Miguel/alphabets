@@ -32,3 +32,10 @@ export const SelectAlphabet = (alphabet: string) => {
         payload: alphabet,
     };
 };
+
+export const AddAlphabet = (alphabet: string) => {
+    return {
+        type: ADD_ALPHABET,
+        payload: alphabet,
+    };
+};
