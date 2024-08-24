@@ -15,12 +15,13 @@ function AlphabetList() {
 
   const AddAlphabetBtn = () =>{
     const newAlphabetElement = document.getElementById("newAlphabet") as HTMLInputElement
+    console.log("lala") 
     dispatch(AddAlphabet(newAlphabetElement.value))
   }
 
   return (
     <div>
-      <Card style={{ height: "95vh", width: "15%", backgroundColor: "#212529" }}>
+      <Card style={{ height: "95vh", backgroundColor: "#212529", borderRadius: "0", padding: "0"}}>
         <form  className="form-inline" style={{ padding: "10px", borderRadius: "0" }}>
           <input id="newAlphabet" placeholder="New Alphabet Name" style={{ width: "65%", margin: "10px" }}/>
           <Button onClick={AddAlphabetBtn} style={{ backgroundColor: "black", borderColor: "black" }}>

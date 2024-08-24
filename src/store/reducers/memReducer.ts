@@ -1,4 +1,4 @@
-import { ADD_ALPHABET, IAction, IState, SELECT_ALPHABET } from "../actions/action";
+import { ADD_ALPHABET, ADD_CHAR, IAction, IState, SELECT_ALPHABET } from "../actions/action";
 
 const initialState: IState = {
     selectedAlphabet: "",
@@ -7,22 +7,33 @@ const initialState: IState = {
 };
 
 const memReducer = (state = initialState, action: IAction) => {
+    console.log(action.type)
     switch (action.type) {
         case SELECT_ALPHABET:
-            localStorage.setItem("selectedAlphabet", action.payload)
             return {
                 ...state,
-                selectedAlphabet: localStorage.getItem("selectedAlphabet")!,
+                selectedAlphabet: action.payload,
             }
         case ADD_ALPHABET:
             let alphabetsCopy = state.alphabets.slice()
             alphabetsCopy.push(action.payload)
-
+            
             let alphabetsCopyForStorage = JSON.stringify(alphabetsCopy)
             localStorage.setItem("alphabets", alphabetsCopyForStorage)
             return {
                 ...state,
                 alphabets: alphabetsCopy,
+            }
+        case ADD_CHAR:
+            
+            let charsCpy = state.characters.slice()            
+            charsCpy.push(action.payload)
+
+            let charsCopyForStorage = JSON.stringify(charsCpy)
+            localStorage.setItem("characters", charsCopyForStorage)
+            return {
+                ...state,
+                characters: charsCpy,
             }
         default:
             let storedAlphabets = localStorage.getItem("alphabets")
@@ -30,9 +41,16 @@ const memReducer = (state = initialState, action: IAction) => {
             if(storedAlphabets !== null) {
                 alphabets = JSON.parse(storedAlphabets)
             }
+
+            let storedCharacters = localStorage.getItem("characters")
+            let characters = []
+            if(storedCharacters !== null) {
+                characters = JSON.parse(storedCharacters)
+            }
             return {
                 ...state,
                 alphabets: alphabets,
+                characters: characters,
             }
     }
 };

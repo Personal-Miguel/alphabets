@@ -6,12 +6,10 @@ export const ADD_CHAR = "ADD_CHAR"
 export const EDIT_CHAR = "EDIT_CHAR"
 export const DELETE_CHAR = "DELETE_CHAR"
 
-interface ICharacter {
+export interface ICharacter {
     originalChar: string,
     englishChar: string,
     alphabet: string,
-    col: number,
-    row: number
 }
 export interface IState {
     selectedAlphabet: string,
@@ -37,5 +35,12 @@ export const AddAlphabet = (alphabet: string) => {
     return {
         type: ADD_ALPHABET,
         payload: alphabet,
+    };
+};
+
+export const AddCharacter = (char: ICharacter) => {
+    return {
+        type: ADD_CHAR,
+        payload: char,
     };
 };
