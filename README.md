@@ -1,1 +1,1 @@
-![screenshot](alphabets.PNG)!
+![screenshot](alphabets.PNG)
