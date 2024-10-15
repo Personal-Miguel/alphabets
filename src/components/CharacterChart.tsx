@@ -4,7 +4,6 @@ import { AddCharacter, ICharacter, IReducedState } from "../store/actions/action
 import { useState } from "react";
 
 function CharacterChart() {
-    var alphabets = useSelector((state: IReducedState) => state.mem.alphabets)
     var selectedAlphabet = useSelector((state: IReducedState) => state.mem.selectedAlphabet)
     var characters = useSelector((state: IReducedState) => state.mem.characters.filter(char => char.alphabet.localeCompare(selectedAlphabet) === 0))
     const dispatch = useDispatch()
@@ -69,7 +68,6 @@ function CharacterChart() {
                         </Card>
                     )}
                 </Row>
-
             </ListGroup>
             </Card>
         </div>

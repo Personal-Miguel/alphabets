@@ -15,7 +15,6 @@ function AlphabetList() {
 
   const AddAlphabetBtn = () =>{
     const newAlphabetElement = document.getElementById("newAlphabet") as HTMLInputElement
-    console.log("lala") 
     dispatch(AddAlphabet(newAlphabetElement.value))
   }
 
